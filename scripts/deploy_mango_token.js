@@ -36,8 +36,8 @@ async function main() {
 
   lafinca.deployed()
 
-  // Wait 3 seconds before trying to verify   
-  await new Promise(resolve => setTimeout(resolve, 50000));
+  // Wait before trying to verify   
+  await new Promise(resolve => setTimeout(resolve, 100000));
 
   await hre.run("verify:verify", {
     address: lafinca.address,
@@ -52,6 +52,8 @@ async function main() {
     ],
   });
 
+  await mangoToken.transfer(lafinca.address, "100000000000000000000000");
+  console.log("MangoToken transfered to LaFinca")
   console.log("MangoToken deployed and verified to:", mangoToken.address);
   console.log("WMATIC deployed and verified to:", wmatic.address)
   console.log("LaFinca deployed and verified to:", lafinca.address)
