@@ -62,7 +62,7 @@ describe("La Finca MATIC Staking Test", function () {
         mangoTokenDeployed.address,
         '1000000000000000000',
         3,
-        6,
+        50,
         owner.address,
         wmaticDeployed.address
     );
@@ -76,13 +76,16 @@ describe("La Finca MATIC Staking Test", function () {
     // If the callback function is async, Mocha will `await` it.
     it("Deposit and withdraw test addr1", async function () {
         // Deposit from Addr1
-        await laFincaDeployed.connect(addr1).deposit({value: utils.parseUnits("10", baseUnit)});
+        await laFincaDeployed.connect(addr1).deposit({value: utils.parseUnits("5", baseUnit)});
+        // Should not have rewards on same staking block
+        expect(await laFincaDeployed.pendingReward(addr1.address)).to.equal(utils.parseUnits('0', baseUnit))
+        await laFincaDeployed.connect(addr2).deposit({value: utils.parseUnits("5", baseUnit)});
         // Expect total amount of WMATIC
         expect(await wmaticDeployed.balanceOf(laFincaDeployed.address)).to.equal(utils.parseUnits('10', baseUnit))
-        
-        // Get Reward for Addr1 and expect equals to 1
+        // Get Reward for Addr1 and expect equals to 1.5
         await laFincaDeployed.connect(addr1).deposit();
-        expect(await mangoTokenDeployed.balanceOf(addr1.address)).to.equal(utils.parseUnits('1', baseUnit))
+        expect(await mangoTokenDeployed.balanceOf(addr1.address)).to.equal(utils.parseUnits('1.5', baseUnit))
+        expect(await laFincaDeployed.pendingReward(addr2.address)).to.equal(utils.parseUnits('0.5', baseUnit))
     });
   });
 });
