@@ -4,7 +4,7 @@ coverage.json
 typechain
 yarn.lock
 package-lock.json
-
+.env
 #Hardhat files
 cache
 artifacts
