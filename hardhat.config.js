@@ -46,10 +46,10 @@ module.exports = {
     networks: {
         hardhat: {
         },
-        mumbai: {
-            url: process.env.POLYGON_MUMBAI_RPC,
-            accounts:[process.env.PRIVATE_KEY],
-        },
+        // mumbai: {
+        //     url: process.env.POLYGON_MUMBAI_RPC,
+        //     accounts:[process.env.PRIVATE_KEY],
+        // },
     },
     etherscan: {
         apiKey: "VQV1PV11ADUA97QBINHU4ZEQNIQF5TIKQ4",
